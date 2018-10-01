@@ -15,7 +15,7 @@ fn main() {
         .expect("Error creating client");
 
     client.with_framework(StandardFramework::new()
-        .configure(|c| c.prefix("-"))
+        .configure(|c| c.prefix("."))
         .cmd("ping", ping));
 
     if let Err(why) = client.start() {
