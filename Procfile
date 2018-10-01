@@ -1,1 +1,1 @@
-worker: cargo run
+worker: ./target/release/scott
