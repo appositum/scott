@@ -5,3 +5,5 @@ authors = ["appositum <appositum@protonmail.com>"]
 
 [dependencies]
 serenity = "0.5.9"
+log = "0.4"
+env_logger = "0.5.13"
