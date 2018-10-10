@@ -15,7 +15,7 @@ const APPOS : u64 = 146367028968554496;
 struct Handler;
 
 impl EventHandler for Handler {
-    fn ready(&self, _: Context, ready: Ready) {
+    fn ready(&self, _ : Context, ready : Ready) {
         let logged = "Logged in as ".to_owned()
             + &ready.user.name + "#"
             + &ready.user.discriminator.to_string()
@@ -25,7 +25,7 @@ impl EventHandler for Handler {
         info!("{} is ready!", ready.user.name);
     }
 
-    fn resume(&self, _: Context, resume: ResumedEvent) {
+    fn resume(&self, _ : Context, resume : ResumedEvent) {
         debug!("Resumed; trace: {:#?}", resume.trace);
     }
 }
