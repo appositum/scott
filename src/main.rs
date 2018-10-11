@@ -3,7 +3,6 @@
 extern crate env_logger;
 
 use std::env;
-use env_logger::{Builder, Target};
 use serenity::client::Client;
 use serenity::framework::standard::StandardFramework;
 use serenity::model::event::ResumedEvent;
