@@ -6,7 +6,9 @@ use std::env;
 use serenity::client::Client;
 use serenity::framework::standard::StandardFramework;
 use serenity::model::event::ResumedEvent;
-use serenity::model::gateway::Ready;
+use serenity::model::gateway::{Game, Ready};
+use serenity::model::user::OnlineStatus;
+
 use serenity::prelude::*;
 
 const APPOS : u64 = 146367028968554496;
@@ -14,7 +16,7 @@ const APPOS : u64 = 146367028968554496;
 struct Handler;
 
 impl EventHandler for Handler {
-    fn ready(&self, _ : Context, ready : Ready) {
+    fn ready(&self, ctx : Context, ready : Ready) {
         let logged = "Logged in as ".to_owned()
             + &ready.user.name + "#"
             + &ready.user.discriminator.to_string()
@@ -22,6 +24,11 @@ impl EventHandler for Handler {
 
         info!("{}", logged);
         info!("{} is ready!", ready.user.name);
+
+        let game = Game::playing("Scott Pilgrim vs. The World: The Game");
+        let status = OnlineStatus::DoNotDisturb;
+
+        ctx.set_presence(Some(game), status);
     }
 
     fn resume(&self, _ : Context, resume : ResumedEvent) {
