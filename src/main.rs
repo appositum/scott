@@ -1,14 +1,15 @@
 #[macro_use] extern crate serenity;
 #[macro_use] extern crate log;
 extern crate env_logger;
+extern crate rand;
 
 use std::env;
+use rand::Rng;
 use serenity::client::Client;
 use serenity::framework::standard::StandardFramework;
 use serenity::model::event::ResumedEvent;
 use serenity::model::gateway::{Game, Ready};
 use serenity::model::user::OnlineStatus;
-
 use serenity::prelude::*;
 
 const APPOS : u64 = 146367028968554496;
@@ -46,7 +47,8 @@ fn main() {
     client.with_framework(StandardFramework::new()
         .configure(|c| c.prefix("."))
         .cmd("ping", ping)
-        .cmd("saydel", saydel));
+        .cmd("saydel", saydel)
+        .cmd("oh no", ohno));
 
     if let Err(reason) = client.start() {
         error!("An error occurred while running the client: {:?}", reason)
@@ -65,4 +67,12 @@ command!(saydel(_ctx, message, args) {
         error!("Couldn't delete message on saydel: {:#?}", reason);
     }
   }
+});
+
+command!(ohno(_ctx, message) {
+    let num = rand::thread_rng().gen_range(1, 53);
+    let _ = message.channel_id.send_message(|m| m
+        .embed(|e| e
+            .image(format!("https://www.raylu.net/f/ohno/ohno{}.png", num))
+        ));
 });
