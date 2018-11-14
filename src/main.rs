@@ -54,6 +54,9 @@ fn main() {
         .cmd("ping", ping)
         .cmd("saydel", saydel)
         .cmd("say", saydel)
+        .cmd("mario", mario)
+        .cmd("mario abrindo o cu", mario)
+        .cmd("mario mostrando o cu", mario)
         .cmd("oh no", ohno)
         .cmd("ohno", ohno));
 
@@ -83,6 +86,11 @@ command!(saydel(_ctx, message, args) {
         error!("Couldn't delete message on saydel: {:#?}", reason);
     }
   }
+});
+
+command!(mario(_ctx, message) {
+    let file = vec!["assets/mario_mostrando_cu.jpg"];
+    let _ = message.channel_id.send_files(file, |m| m.content(""));
 });
 
 command!(ohno(_ctx, message) {
