@@ -56,7 +56,8 @@ fn main() {
         .cmd("say", saydel)
         .cmd("mario", mario)
         .cmd("mario abrindo o cu", mario)
-        .cmd("mario mostrando o cu", mario)
+        .cmd("luigi", luigi)
+        .cmd("luigi abrindo o cu", luigi)
         .cmd("oh no", ohno)
         .cmd("ohno", ohno));
 
@@ -89,7 +90,12 @@ command!(saydel(_ctx, message, args) {
 });
 
 command!(mario(_ctx, message) {
-    let file = vec!["assets/mario_mostrando_cu.jpg"];
+    let file = vec!["assets/mario_abrindo_o_cu.jpg"];
+    let _ = message.channel_id.send_files(file, |m| m.content(""));
+});
+
+command!(luigi(_ctx, message) {
+    let file = vec!["assets/luigi_abrindo_o_cu.jpg"];
     let _ = message.channel_id.send_files(file, |m| m.content(""));
 });
 
