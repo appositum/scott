@@ -1,5 +1,6 @@
 # Scott William Pilgrim
 ### If I peed my pants, would you guys pretend I just got wet from the rain?
+[![Travis](https://travis-ci.com/appositum/scott.svg?branch=master)](https://travis-ci.com/appositum/scott)
 
 ### Setup
 ```bash
