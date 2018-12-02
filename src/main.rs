@@ -1,29 +1,34 @@
-#[macro_use] extern crate serenity;
-#[macro_use] extern crate log;
+#[macro_use]
+extern crate serenity;
+#[macro_use]
+extern crate log;
+extern crate chrono;
 extern crate env_logger;
 extern crate rand;
-extern crate chrono;
 
-use std::env;
-use rand::Rng;
 use chrono::offset::Utc;
+use rand::Rng;
 use serenity::client::Client;
 use serenity::framework::standard::StandardFramework;
 use serenity::model::event::ResumedEvent;
 use serenity::model::gateway::{Game, Ready};
 use serenity::model::user::OnlineStatus;
 use serenity::prelude::*;
+use std::env;
 
-const APPOS : u64 = 146367028968554496;
+const APPOS: u64 = 146367028968554496;
 
 struct Handler;
 
 impl EventHandler for Handler {
-    fn ready(&self, ctx : Context, ready : Ready) {
+    fn ready(&self, ctx: Context, ready: Ready) {
         let logged = "Logged in as ".to_owned()
-            + &ready.user.name + "#"
+            + &ready.user.name
+            + "#"
             + &ready.user.discriminator.to_string()
-            + " (" + &ready.user.id.to_string() + ")";
+            + " ("
+            + &ready.user.id.to_string()
+            + ")";
 
         info!("{}", logged);
         info!("{} is ready!", ready.user.name);
@@ -34,7 +39,7 @@ impl EventHandler for Handler {
         ctx.set_presence(Some(game), status);
     }
 
-    fn resume(&self, _ : Context, resume : ResumedEvent) {
+    fn resume(&self, _: Context, resume: ResumedEvent) {
         debug!("Resumed; trace: {:#?}", resume.trace);
     }
 }
@@ -43,23 +48,21 @@ fn main() {
     env_logger::init();
 
     let token = env::var("TOKEN").expect("TOKEN environment variable");
-    let mut client = Client::new(&token, Handler)
-        .expect("Error creating client");
+    let mut client = Client::new(&token, Handler).expect("Error creating client");
 
-    client.with_framework(StandardFramework::new()
-        .configure(|c| c
-            .prefix(".")
-            .on_mention(true)
-        )
-        .cmd("ping", ping)
-        .cmd("saydel", saydel)
-        .cmd("say", saydel)
-        .cmd("mario", mario)
-        .cmd("mario abrindo o cu", mario)
-        .cmd("luigi", luigi)
-        .cmd("luigi abrindo o cu", luigi)
-        .cmd("oh no", ohno)
-        .cmd("ohno", ohno));
+    client.with_framework(
+        StandardFramework::new()
+            .configure(|c| c.prefix(".").on_mention(true))
+            .cmd("ping", ping)
+            .cmd("saydel", saydel)
+            .cmd("say", saydel)
+            .cmd("mario", mario)
+            .cmd("mario abrindo o cu", mario)
+            .cmd("luigi", luigi)
+            .cmd("luigi abrindo o cu", luigi)
+            .cmd("oh no", ohno)
+            .cmd("ohno", ohno),
+    );
 
     if let Err(reason) = client.start() {
         error!("An error occurred while running the client: {:#?}", reason)
