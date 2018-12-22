@@ -28,7 +28,7 @@ impl EventHandler for Handler {
         info!("{}", logged);
         info!("{} is ready!", ready.user.name);
 
-        let game = Game::playing("Scott Pilgrim vs. The World: The Game");
+        let game = Game::playing("Scott Pilgrim vs. Christmas");
         let status = OnlineStatus::DoNotDisturb;
 
         ctx.set_presence(Some(game), status);
